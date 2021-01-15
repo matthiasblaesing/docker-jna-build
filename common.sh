@@ -1,0 +1,42 @@
+function mountProc {
+    mkdir -p $1
+    mountpoint $1
+    if [ "$?" != "0" ]; then
+        mount -o bind /proc $1
+    fi
+}
+
+# - based on debian stretch:
+#   - arm64
+#   - mips
+#   - s390x
+#   - mips64el
+#   - ppc64el
+# - base on debian jessie:
+#   - armel
+#   - armhf
+#   - powerpc
+# - based on raspbian:
+#   - armhf / arm6l
+# - based on squeeze:
+#   - amd64
+#   - i386
+
+DEBIAN_STRETCH_BUILDS="arm64 mips s390x mips64el ppc64el"
+DEBIAN_JESSIE_BUILDS="armel armhf powerpc"
+RASPBIAN_BUILDS="armhf"
+DEBIAN_SQUEEZE_BUILDS="amd64 i386"
+DEBIAN_BUILDS="$DEBIAN_STRETCH_BUILDS $DEBIAN_JESSIE_BUILDS $DEBIAN_SQUEEZE_BUILDS"
+
+BIN_VERSION=6.1.0
+BIN_BUILDS="aarch64 arm armel mips64el ppc64le ppc s390x x86 x86-64"
+# minus signes are converted to underscores
+BUILD_ENV_aarch64="debian-arm64"
+BUILD_ENV_arm="raspbian-armhf"
+BUILD_ENV_armel="debian-armel"
+BUILD_ENV_mips64el="debian-mips64el"
+BUILD_ENV_ppc64le="debian-ppc64el"
+BUILD_ENV_ppc="debian-powerpc"
+BUILD_ENV_s390x="debian-s390x"
+BUILD_ENV_x86="debian-i386"
+BUILD_ENV_x86_64="debian-amd64"
