@@ -7,14 +7,15 @@ function mountProc {
 }
 
 # - based on debian stretch:
-#   - arm64
-#   - mips
-#   - s390x
 #   - mips64el
+# - based on debian stretch:
+#   - arm64
+#   - mips (not used yet)
+#   - s390x
 #   - ppc64el
 # - base on debian jessie:
 #   - armel
-#   - armhf
+#   - armhf (excluded, covered by raspbian)
 #   - powerpc
 # - based on raspbian:
 #   - armhf / arm6l
@@ -22,11 +23,12 @@ function mountProc {
 #   - amd64
 #   - i386
 
-DEBIAN_STRETCH_BUILDS="arm64 mips s390x mips64el ppc64el"
-DEBIAN_JESSIE_BUILDS="armel armhf powerpc"
+DEBIAN_BUSTER_BUILDS="mips64el"
+DEBIAN_STRETCH_BUILDS="arm64 mips s390x ppc64el"
+DEBIAN_JESSIE_BUILDS="armel powerpc"
 RASPBIAN_BUILDS="armhf"
 DEBIAN_SQUEEZE_BUILDS="amd64 i386"
-DEBIAN_BUILDS="$DEBIAN_STRETCH_BUILDS $DEBIAN_JESSIE_BUILDS $DEBIAN_SQUEEZE_BUILDS"
+DEBIAN_BUILDS="$DEBIAN_BUSTER_BUILDS $DEBIAN_STRETCH_BUILDS $DEBIAN_JESSIE_BUILDS $DEBIAN_SQUEEZE_BUILDS"
 
 BIN_VERSION=6.1.0
 BIN_BUILDS="aarch64 arm armel mips64el ppc64le ppc s390x x86 x86-64"
