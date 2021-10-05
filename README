@@ -1,4 +1,4 @@
 Start container
 ---------------
 
-docker run -it --privileged  -v $HOME/docker-jna-build:/prep ubuntu:bionic /bin/bash
+docker run -it --privileged  -v $HOME/src/docker-jna-build:/prep ubuntu:bionic /bin/bash
