@@ -1,4 +1,7 @@
-Start container
----------------
-
+# Start container
 docker run -it --privileged  -v $HOME/src/docker-jna-build:/prep ubuntu:bionic /bin/bash
+# Inside container - start global setup
+cd /prep
+bash global-setup.sh
+# Build the libraries
+bash build-libraries
