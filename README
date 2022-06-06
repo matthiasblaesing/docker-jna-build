@@ -1,5 +1,5 @@
 # Start container
-docker run -it --privileged -v $HOME/src/docker-jna-build:/prep --name jna-build ubuntu:bionic /bin/bash
+docker run -it --privileged -v $HOME/src/docker-jna-build:/prep --name jna-build ubuntu:jammy /bin/bash
 # Inside container - start global setup
 cd /prep
 bash global-setup.sh
