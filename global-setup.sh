@@ -16,7 +16,7 @@ cd build
 for i in $DEBIAN_BUSTER_BUILDS;do echo "Setup $i"; qemu-debootstrap --arch=$i buster debian-$i http://deb.debian.org/debian; done
 for i in $DEBIAN_STRETCH_BUILDS;do echo "Setup $i"; qemu-debootstrap --arch=$i stretch debian-$i http://deb.debian.org/debian; done
 for i in $DEBIAN_JESSIE_BUILDS;do echo "Setup $i"; qemu-debootstrap --arch=$i jessie debian-$i http://archive.debian.org/debian; done
-for i in $DEBIAN_PORTS_BUILDS;do echo "Setup $i"; qemu-debootstrap --arch=$i unstable debian-$i http://deb.debian.org/debian-ports; done
+for i in $UBUNTU_PORTS_BUILDS;do echo "Setup $i"; qemu-debootstrap --arch=$i focal ubuntu-$i http://ports.ubuntu.com/ubuntu-ports; done
 export QEMU_CPU=arm1176
 for i in $RASPBIAN_BUILDS;do echo "Setup $i"; qemu-debootstrap --arch=$i stretch raspbian-$i http://archive.raspbian.org/raspbian; done
 unset QEMU_CPU
@@ -25,6 +25,7 @@ for i in $DEBIAN_SQUEEZE_BUILDS; do echo "Setup $i"; qemu-debootstrap --arch=$i 
 # Installing the JDK needs proc file system mounted - so do this
 for i in $DEBIAN_BUILDS; do mountProc /build/debian-$i/proc ;done
 for i in $RASPBIAN_BUILDS; do mountProc /build/raspbian-$i/proc; done
+for i in $UBUNTU_BUILDS; do mountProc /build/ubuntu-$i/proc ;done
 
 wget https://ftp.gnu.org/gnu/autoconf/autoconf-2.71.tar.gz
 wget https://ftp.gnu.org/gnu/automake/automake-1.16.5.tar.gz
@@ -61,14 +62,14 @@ for i in $DEBIAN_JESSIE_BUILDS; do
     chroot /build/debian-$i /bin/bash prepare-common.sh
 done
 
-for i in $DEBIAN_PORTS_BUILDS; do
-    echo -e "deb [trusted=yes] http://deb.debian.org/debian-ports sid main\ndeb-src http://deb.debian.org/debian unstable main" > /build/debian-$i/etc/apt/sources.list
-    cp /prep/prepare-common.sh /build/debian-$i
-    cd /build/debian-$i
+for i in $UBUNTU_PORTS_BUILDS; do
+    echo -e "deb [trusted=yes] http://ports.ubuntu.com/ubuntu-ports focal main universe\ndeb-src [trusted=yes] http://ports.ubuntu.com/ubuntu-ports focal main universe" > /build/ubuntu-$i/etc/apt/sources.list
+    cp /prep/prepare-common.sh /build/ubuntu-$i
+    cd /build/ubuntu-$i
     tar xzvf ../autoconf-2.71.tar.gz
     tar xzvf ../automake-1.16.5.tar.gz
     tar xzvf ../libtool-2.4.7.tar.gz
-    chroot /build/debian-$i /bin/bash prepare-common.sh
+    chroot /build/ubuntu-$i /bin/bash prepare-common.sh
 done
 
 for i in $RASPBIAN_BUILDS; do
