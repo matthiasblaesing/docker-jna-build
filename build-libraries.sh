@@ -5,14 +5,13 @@ cd /prep/build-packages
 for ARCH in $BIN_BUILDS; do
     ARCH_VAR=`echo $ARCH | sed -e 's/-/_/g'`
     BUILD_NAME=build-package-linux-$ARCH-$BIN_VERSION
+    BUILD_ENV_VAR="BUILD_ENV_$ARCH_VAR"
+    BUILD_ENV=${!BUILD_ENV_VAR}
     umount /build/$BUILD_ENV/build-package
     if [[ -d $BUILD_NAME ]]; then
         rm -r $BUILD_NAME
     fi
     unzip $BUILD_NAME.zip
-
-    BUILD_ENV_VAR="BUILD_ENV_$ARCH_VAR"
-    BUILD_ENV=${!BUILD_ENV_VAR}
 
     AUTORECONF=""
 
